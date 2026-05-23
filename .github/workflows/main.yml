@@ -102,7 +102,7 @@ jobs:
         run: |
           mvn verify sonar:sonar \
           -Dsonar.projectKey=RaulSkyblue_bdget-jacoco \
-          -Dsonar.organization=RaulSkyblue-duoc \
+          -Dsonar.organization=RaulSkyblue \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
