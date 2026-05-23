@@ -8,7 +8,7 @@ on:
 jobs:
 
   # =========================
-  # 🔐 1. SNYK SCAN ..
+  # 🔐 1. SNYK SCAN ...
   # =========================
   snyk-scan:
     name: Snyk Security Scan
@@ -101,8 +101,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn verify sonar:sonar \
-          -Dsonar.projectKey=cbugueno-duoc_bdget-jacoco \
-          -Dsonar.organization=cbugueno-duoc \
+          -Dsonar.projectKey=RaulSkyblue_bdget-jacoco \
+          -Dsonar.organization=RaulSkyblue-duoc \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
