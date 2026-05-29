@@ -1,0 +1,9 @@
+services:
+  bdget:
+    build: .
+    container_name: bdget-microservice
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    restart: unless-stopped
