@@ -169,3 +169,29 @@ jobs:
       - name: Stop Containers
         if: always()
         run: docker compose -f docker-compose.yml down
+
+  deploy-aws-academy:
+    name: Deploy to AWS Academy EC2
+    runs-on: ubuntu-latest
+    needs: docker
+
+    steps:
+      - name: Deploy app in EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            if [ ! -d "bdget-jacoco" ]; then
+              git clone https://github.com/RaulSkyblue/bdget-jacoco.git
+            fi
+
+            cd bdget-jacoco
+            git pull origin main
+
+            sudo docker rm -f bdget || true
+            sudo docker build -t bdget-microservice .
+            sudo docker run -d --name bdget -p 8080:8080 bdget-microservice
+
+            sudo docker ps
