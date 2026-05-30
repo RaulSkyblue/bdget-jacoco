@@ -63,7 +63,7 @@ resource "aws_security_group" "web_sg" {
   }
 
   ingress {
-    description = "Spring Boot 8080"
+    description = "Spring Boot"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -71,7 +71,7 @@ resource "aws_security_group" "web_sg" {
   }
 
   ingress {
-    description = "HTTP 80"
+    description = "HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -79,7 +79,7 @@ resource "aws_security_group" "web_sg" {
   }
 
   egress {
-    description = "Salida a internet"
+    description = "Salida a Internet"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -97,12 +97,17 @@ resource "aws_instance" "web" {
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
+  # IMPORTANTE
+  key_name = "bdget-key"
+
   user_data = <<-EOF
               #!/bin/bash
               yum update -y
               yum install -y docker git
+
               systemctl enable docker
               systemctl start docker
+
               usermod -aG docker ec2-user
               EOF
 
@@ -112,9 +117,11 @@ resource "aws_instance" "web" {
 }
 
 output "public_ip" {
-  value = aws_instance.web.public_ip
+  description = "IP publica de la instancia EC2"
+  value       = aws_instance.web.public_ip
 }
 
 output "public_dns" {
-  value = aws_instance.web.public_dns
+  description = "DNS publico de la instancia EC2"
+  value       = aws_instance.web.public_dns
 }
