@@ -5,7 +5,7 @@
 ## Integrantes
 
 * Raúl Álvarez
-* [Nombre compañero]
+* Cristofer Barrueto
 
 ## Descripción del Proyecto
 
@@ -211,6 +211,48 @@ Esto permite seguir el recorrido completo de la aplicación desde el desarrollo 
 (Agregar captura)
 
 ---
+
+## Despliegue en AWS Academy
+
+Además del entorno local y la validación mediante Docker Compose en GitHub Actions, el proyecto se encuentra desplegado en AWS Academy utilizando Infraestructura como Código (IaC) con Terraform.
+
+### Infraestructura provisionada
+
+* VPC personalizada
+* Subred pública
+* Internet Gateway
+* Tabla de rutas
+* Security Group
+* Instancia EC2 Amazon Linux 2
+
+### Tecnologías utilizadas
+
+* Terraform
+* AWS Academy
+* Amazon EC2
+* Docker
+* GitHub Actions
+
+### Flujo de despliegue
+
+1. Terraform crea automáticamente la infraestructura en AWS Academy.
+2. GitHub Actions ejecuta el pipeline CI/CD.
+3. El pipeline realiza:
+
+   * Análisis de seguridad con Snyk.
+   * Ejecución de pruebas unitarias con JaCoCo.
+   * Análisis de calidad con SonarCloud.
+   * Construcción del artefacto JAR.
+   * Construcción de la imagen Docker.
+4. GitHub Actions se conecta por SSH a la instancia EC2.
+5. Se actualiza el código fuente mediante Git.
+6. Se reconstruye y despliega automáticamente el contenedor Docker.
+
+### Acceso a la aplicación
+
+La aplicación se ejecuta dentro de un contenedor Docker en una instancia EC2 de AWS Academy y puede ser accedida mediante su dirección IP pública y el puerto 8080.
+
+
 
 # Conclusión
 
